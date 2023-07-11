@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+    
+    <div id="app"> 
+        <div id="clock">
+            <div class="big-circle">
+                <div class="seconds-ball" :style="xCord ? { transform: `translate(calc(-50% + ${xCord}), calc(-50% + ${yCord}))` } : {}"></div>
+                <div class="seconds-outer-circle" :style="xCord ? { transform: `translate(calc(-50% + ${xCord}), calc(-50% + ${yCord}))` } : {}">
+                    <div class="seconds-outer-ball" :style="mxCord ? { transform: `translate(calc(-50% + ${mxCord}), calc(-50% + ${myCord}))` } : {}"></div>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <script>
+        // Create a new Vue instance
+        const app = Vue.createApp({
+            data(){
+                return{
+                    xCord: undefined,
+                    yCord: undefined,
+                    mxCord:undefined,
+                    myCord:undefined,
+
+                    incrementNum: 1,
+                    // isDark: false,
+                }
+            },
+            watch: {
+            },
+            methods:{
+                test(x0, y0, r, r2) {
+                    // t = this.incrementNum
+                    const now = new Date();
+                    const currentSecond = now.getSeconds();
+                    const currentMillisecond = now.getMilliseconds();
+                    // console.log(currentMillisecond);
+                    let formattedMillisecond = currentMillisecond.toString();
+                    if (formattedMillisecond.length < 3) {
+                    formattedMillisecond = ("00" + formattedMillisecond).slice(-3);
+                    }
+                    const timestamp = currentSecond + '.' + formattedMillisecond;
+
+                    
+                    t = timestamp
+                    // console.log(timestamp);
+                    t-=15
+                    this.incrementNum++
+                    // Calculate the angle in radians
+                    var angle = 2 * Math.PI * (t / 60);
+
+                    // Calculate the new x and y coordinates
+                    var x = x0 + r * Math.cos(angle);
+                    var y = y0 + r * Math.sin(angle);
+
+                    // Return the coordinates
+                    // console.log({x: x, y: y})
+                    this.xCord = x+"px"
+                    this.yCord = y+"px"
+
+
+                    // ---------------------------------------
+                    angle = 2 * Math.PI * ( formattedMillisecond/ 1000);
+                    // Calculate the new x and y coordinates
+                    x = x0 + r2 * Math.cos(angle);
+                    y = y0 + r2 * Math.sin(angle);
+
+                    // Return the coordinates
+                    // console.log({x: x, y: y})
+                    this.mxCord = x+"px"
+                    this.myCord = y+"px"
+                },
+            },
+            mounted() {
+                this.interval = setInterval(() => {
+                    this.test(0, 0, 250, 50);
+                }, 1000 / 60); // 1000ms / 60 = 16.67ms
+            },
+        });
+        app.mount('#app');
+
+    </script>
+    
+</body>
+<style>
+
+    body {
+            
+        margin: 0;
+        padding: 0;
+        
+    }
+
+    #clock{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .big-circle{
+        /* width: 500px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #47897D;
+        background-color: blue;
+        position: relative; */
+
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        border: 3px solid #47897D;
+        /* border-color: transparent transparent transparent red; */
+        box-sizing: border-box;
+        /* z-index: ; */
+    }
+
+    .dummy-circle{
+        /* position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+
+        width: calc(100% - 5px);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: white; */
+    }
+
+    .seconds-ball{
+        position: absolute;
+        z-index: -1;
+
+        width: 50px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #47897D;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+    }
+
+    .seconds-outer-circle{
+        position: absolute;
+        /* z-index: -2;
+
+        width:100px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #47897D; */
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+
+        width: 100px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: 3px solid #47897D;
+        /* border-color: transparent transparent transparent red; */
+        box-sizing: border-box;
+    }
+
+    .seconds-outer-ball{
+        position: absolute;
+        z-index: -1;
+
+        width: 20px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #47897D;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+    }
+
+    /* .seconds-outer-dummy-circle{
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 95px;
+        aspect-ratio: 1/1;
+        border-radius   : 50%;
+        background-color: white;
+    } */
+</style>
+</html>
+</html>

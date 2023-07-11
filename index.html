@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+    
+    <div id="app"> 
+        <div :class="{'dark-mode': isDark}" class="switch-wrapper">
+            <label class="switch">
+              <input type="checkbox" v-model="isDark">
+              <span class="slider round"></span>
+            </label>
+            <!-- Your content goes here -->
+        </div>
+
+        <div class="wrapper">
+            <div class="center" @click="isDark = !isDark">
+                <div class="images" :style="{ transform: isDark ? 'translate(-50%, calc(-50% - 150px)) ' : 'translate(-50%, calc(-50% + 300px))' }">
+                    <img src="./images/A94306025_1b.png" alt=""> <br>
+                    
+                    <img src="./images/A94306026_2b.png" alt=""> 
+                </div>
+            </div>
+            <div class="center" @click="isDark = !isDark">
+                <img src="./images/A94306025_1b.png" alt="" style="position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);" :style="{ opacity: isDark ? '0' : '1' }"> 
+                    
+                <img src="./images/A94306026_2b.png" alt="" style="position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); width: 230px;" :style="{ opacity: isDark ? '1' : '0' }"> 
+            </div>
+        </div>
+
+
+
+        <div class="horizontal-slide" style="">
+            <div class="borders">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="divider">
+
+            </div>
+            <div class="imgaes">
+                <img src="./images/A94306025_1b.png" alt="" style="" :style="isDark ? { transform: 'translate(596px,-50%)',opacity: '0', } : { opacity: '1' }">
+                <img src="./images/A94306026_2b.png" alt="" :style="isDark ? { transform: 'translate(596px,-50%)',opacity: '1', } : { opacity: '0' }">
+            </div>
+
+        </div>
+
+
+
+        <div id="clock">
+            <div class="big-circle">
+                <div class="dummy-circle"></div>
+            </div>
+        </div>
+        <!-- <div class="wrapper">
+            <img v-for="index in 1000" :key="index" src="https://www.pal-shop.jp/client_info/SHOPRO/itemimage/A94306027/A94306027_0b.jpg" alt="My Picture">
+        </div> -->
+    </div>
+    <script>
+        // Create a new Vue instance
+        const app = Vue.createApp({
+            data(){
+                return{
+                    isDark: false,
+                }
+            },
+            watch: {
+                isDark(newVal) {
+                    if (newVal) {
+                        document.body.style.setProperty('--bg-color', '#020202 ');
+                        
+                    } else {
+                        document.body.style.setProperty('--bg-color', '');
+                    }
+                }
+            },
+        });
+        app.mount('#app');
+
+    </script>
+</body>
+<style>
+
+    body {
+            
+        margin: 0;
+        padding: 0;
+        
+    }
+
+    #clock{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .big-circle{
+        width: 500px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #47897D;
+    }
+
+
+
+
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    .wrapper{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+        width: 1000px;
+
+
+
+        display: flex;
+        justify-content: space-between;
+
+        z-index: 10;
+
+
+    }
+
+    .center{
+        background-color: var(--bg-color);
+        transition: background-color 0.7s ease-in-out;
+
+
+        position: relative;
+        /* transform: translateY(-50%); */
+        border: 2px solid black;
+        /* padding: 20px; */
+
+        width: 400px;
+        aspect-ratio: 1/1;
+        z-index: 5;
+        overflow: hidden;
+    }
+
+    .center .images{
+        z-index: 4;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transition: all 0.7s ease-in-out;
+        /* transform: translate(-50%,calc(-50% + 300px)); */
+    }
+    .center img{
+        width: 300px;
+        height: auto;
+        margin-bottom: 50%;
+        transition: all 0.7s ease-in-out;
+    }
+
+
+    .horizontal-slide{
+        background-color: var(--bg-color);
+        width: 1000px;
+        height: 400px;    
+        position: absolute; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        bottom: 50px;
+
+        transition: background-color 0.7s ease-in-out;
+    }
+
+    .horizontal-slide .borders{
+        z-index: 120;
+
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .horizontal-slide .borders div{
+        width: 400px;
+        aspect-ratio: 1/1;
+        border: 2px solid black;
+    }
+
+    .horizontal-slide .divider{
+        z-index: 110;
+        width: 190px;
+        height: 100%;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+
+        background-color: white;
+    }
+
+    .horizontal-slide img{
+        z-index: 100;
+
+        height: 300px;
+        width: auto;
+
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        /* left: calc(0% + 10px); */
+        left: 52px;
+        transition: all 0.7s ease-in-out;
+
+    }
+
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+
+.switch-wrapper{
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+   
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.dark-mode {
+    /* background-color: #444; */
+    color: white;
+}
+
+.dark-mode a {
+    color: lightblue;
+}
+</style>
+</html>
